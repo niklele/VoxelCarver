@@ -3,7 +3,7 @@ clear all; close all; clc;
 addpath(genpath('functions'));
 
 % Load the data
-load('eraser_frames.mat');
+load('bluecup_frames.mat');
 
 partE = 0; % change to 1 for part E
 %% PART A: Generate the silhouette for each image
@@ -29,7 +29,7 @@ title( 'Silhouette' );
 axis off;
 %% PART B: Generate the voxel grid
 % Find an estimate of the bounds of the object we are about to carve
-num_voxels = 6000000; % decrease number of voxels for easier debugging
+num_voxels = 6000; % decrease number of voxels for easier debugging
 [xlim,ylim,zlim] = getVoxelBounds( frames , partE);
 voxels = formInitialVoxels( xlim, ylim, zlim, num_voxels);
 starting_volume = size(voxels);

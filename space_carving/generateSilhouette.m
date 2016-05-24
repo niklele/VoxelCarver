@@ -17,7 +17,7 @@ function s = generateSilhouette( im )
 % We use the RGB colors/gradients in our solution, but feel free to 
 % experiment with other features as well.
 [h,w,~] = size(im);
-S = im(:,:,1) > (im(:,:,3));
+S = im(:,:,1) > im(:,:,3);
 S = bwareaopen(S, ceil(h*w/10));
 s = S;
 end
