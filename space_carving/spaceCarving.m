@@ -3,9 +3,9 @@ clear all; close all; clc;
 addpath(genpath('functions'));
 
 % Load the data
-load('frames.mat');
+load('eraser_frames.mat');
 
-partE = 1; % change to 1 for part E
+partE = 0; % change to 1 for part E
 %% PART A: Generate the silhouette for each image
 for c=1:numel(frames)
     if partE

@@ -29,5 +29,5 @@ worldPoints = generateCheckerboardPoints(boardSize, squareSize);
     'NumRadialDistortionCoefficients', 2, 'WorldUnits', 'in', ...
     'InitialIntrinsicMatrix', [], 'InitialRadialDistortion', []);
 
-eraser_frames = createFramesArray(imageFileNames, cameraParams);
-save('eraser_frames.mat', 'eraser_frames');
+frames = createFramesArray(imageFileNames, cameraParams);
+save('eraser_frames.mat', 'frames');
