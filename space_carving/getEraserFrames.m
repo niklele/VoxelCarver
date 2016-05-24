@@ -30,4 +30,4 @@ worldPoints = generateCheckerboardPoints(boardSize, squareSize);
     'InitialIntrinsicMatrix', [], 'InitialRadialDistortion', []);
 
 eraser_frames = createFramesArray(imageFileNames, cameraParams);
-save('eraser_frames.mat', eraser_frames);
+save('eraser_frames.mat', 'eraser_frames');
