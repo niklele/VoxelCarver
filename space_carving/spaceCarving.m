@@ -19,12 +19,12 @@ end
 figure();
 
 subplot(1,2,1);
-imshow( frames(c).image );
+imshow( frames(1).image );
 title( 'Image' );
 axis off;
 
 subplot(1,2,2);
-imshow( frames(c).silhouette );
+imshow( frames(1).silhouette );
 title( 'Silhouette' );
 axis off;
 %% PART B: Generate the voxel grid
@@ -36,13 +36,14 @@ starting_volume = size(voxels);
 
 % Show the whole scene
 figure();
+
 plotCamerasAndSurf( frames, voxels );
 %% Part C: Test out the first carving
-voxels = carve( voxels, frames(1) );
+voxels = carve( voxels, frames(4) );
 
 % Show Result
 figure();
-plotCamerasAndSurf( frames(1), voxels );
+plotCamerasAndSurf( frames(4), voxels );
 title( 'Result after 1 carving' )
 %% Part D+E: Result after all carvings (remember to change variable in setup for part E)
 for c=1:numel(frames)

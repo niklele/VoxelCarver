@@ -18,6 +18,13 @@ imageFileNames = {'bluecup/IMG_0067.jpg',...
     'bluecup/IMG_0081.jpg',...
     };
 
+for k = 1:length(imageFileNames)
+    impath = imageFileNames{k};
+    resize_im = resizeImage(impath, 1024, 768);
+    out_path = sprintf('%s', impath);
+    imwrite(resize_im, out_path);
+end
+
 % Detect checkerboards in images
 [imagePoints, boardSize, imagesUsed] = detectCheckerboardPoints(imageFileNames);
 imageFileNames = imageFileNames(imagesUsed);
