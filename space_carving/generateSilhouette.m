@@ -17,7 +17,34 @@ function s = generateSilhouette( im )
 % We use the RGB colors/gradients in our solution, but feel free to 
 % experiment with other features as well.
 [h,w,~] = size(im);
-S = im(:,:,1) > im(:,:,3);
-S = bwareaopen(S, ceil(h*w/10));
-s = S;
+
+% convert to LAB colorspace
+cform = makecform('srgb2lab');
+lab_s = applycform(im,cform);
+
+% classify in AB space with kmeans
+ab = double(lab_s(:,:,2:3));
+nrows = size(ab,1);
+ncols = size(ab,2);
+ab = reshape(ab,nrows*ncols,2);
+
+nColors = 3;
+% repeat the clustering 3 times to avoid local minima
+[cluster_idx, cluster_center] = kmeans(ab,nColors,'distance','sqEuclidean', ...
+                                      'Replicates',3);
+                                  
+pixel_labels = reshape(cluster_idx,nrows,ncols);
+
+% find the bluest cluster center to select which cluster to use for
+% silhouette
+mean_cluster_value = mean(cluster_center,2);
+[tmp, idx] = sort(mean_cluster_value);
+blue_cluster_num = idx(1);
+
+rgb_label = repmat(pixel_labels,[1 1 3]);
+im(rgb_label ~= blue_cluster_num) = 0;
+im(rgb_label == blue_cluster_num) = 255;
+
+s = im2double(im);
+
 end
