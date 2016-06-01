@@ -3,7 +3,7 @@ clear all; close all; clc;
 addpath(genpath('functions'));
 
 % Load the data
-load('bluecup2_frames.mat');
+load('bluebowl_frames.mat');
 
 partE = 0; % change to 1 for part E
 %% PART A: Generate the silhouette for each image
@@ -43,6 +43,7 @@ voxels = carve( voxels, frames(1) );
 
 % Show Result
 figure();
+
 plotCamerasAndSurf( frames(1), voxels );
 title( 'Result after 1 carving' )
 %% Part D+E: Result after all carvings (remember to change variable in setup for part E)
