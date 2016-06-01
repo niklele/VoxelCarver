@@ -29,22 +29,48 @@ ncols = size(ab,2);
 ab = reshape(ab,nrows*ncols,2);
 
 nColors = 3;
-% repeat the clustering 3 times to avoid local minima
+% repeat the clustering to avoid local minima
 [cluster_idx, cluster_center] = kmeans(ab,nColors,'distance','sqEuclidean', ...
-                                      'Replicates',3);
+                                      'Replicates',4);
                                   
 pixel_labels = reshape(cluster_idx,nrows,ncols);
 
 % find the bluest cluster center to select which cluster to use for
 % silhouette
-mean_cluster_value = mean(cluster_center,2);
-[tmp, idx] = sort(mean_cluster_value);
-blue_cluster_num = idx(1);
+pixel_labels = reshape(cluster_idx,nrows,ncols);
+figure;
+imshow(pixel_labels,[]), title('image labeled by cluster index');
+
+cluster_value = mean(cluster_center,2);
+[tmp, idx] = sort(cluster_value);
+cluster_num = idx(1);
 
 rgb_label = repmat(pixel_labels,[1 1 3]);
-im(rgb_label ~= blue_cluster_num) = 0;
-im(rgb_label == blue_cluster_num) = 255;
 
+im(rgb_label ~= cluster_num) = 0;
+im(rgb_label == cluster_num) = 255;
 s = im2double(im);
+
+% figure;
+% imshow(s);
+
+
+% fill in holes in objects with disks
+se = strel('disk',20);
+s = imclose(s,se);
+
+% figure;
+% imshow(s);
+
+
+% get largest silhouette only by finding largest connected component
+CC = bwconncomp(s);
+numPixels = cellfun(@numel,CC.PixelIdxList);
+[biggest,idx] = max(numPixels);
+
+s2 = zeros(size(s));
+s2(CC.PixelIdxList{idx}) = 1;
+s = s2;
+
 
 end
