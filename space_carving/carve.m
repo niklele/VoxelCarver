@@ -27,23 +27,5 @@ for i = 1:N
     end
 end
 voxels = voxels(voxelsi == 1,:);
-size(voxels)
 
-% v = frame.P * [voxels ones(size(voxels,1),1)]';
-% v = v';
-% x = v(:,1) ./ v(:,3);
-% y = v(:,2) ./ v(:,3);
-% 
-% [h,w,d] = size(frame.image);
-% keep = find( (x>=1) & (x<=w) & (y>=1) & (y<=h) );
-% x = x(keep);
-% y = y(keep);
-% size(x)
-% size(y)
-% 
-% % Now clear any that are not inside the silhouette
-% ind = sub2ind( [h,w], round(y), round(x) );
-% keep = keep(frame.silhouette(ind) >= 1);
-% 
-% voxels = voxels(keep,:);
 end
